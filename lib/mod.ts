@@ -1,4 +1,4 @@
-export enum TimeUnit {
+enum TimeUnit {
   Null = 0,
   Second = 1,
   Minute,
@@ -11,20 +11,20 @@ export enum TimeUnit {
   Microsecond,
 }
 
-export type RelativeTimeUnit = {
+type RelativeTimeUnit = {
   unit: TimeUnit;
   multiplier: number;
 };
 
-export type LookupTable = {
+type LookupTable = {
   [key: string]: number;
 };
 
-export type RelativeLookupTable = {
+type RelativeLookupTable = {
   [key: string]: RelativeTimeUnit;
 };
 
-export const RelativeLookupTable: RelativeLookupTable = {
+const RelativeLookupTable: RelativeLookupTable = {
   null: { unit: TimeUnit.Null, multiplier: TimeUnit.Null },
   ms: { unit: TimeUnit.Microsecond, multiplier: 1000 },
   msec: { unit: TimeUnit.Microsecond, multiplier: 1000 },
@@ -104,7 +104,7 @@ export const RelativeLookupTable: RelativeLookupTable = {
   },
 };
 
-export const RelativeTextLookupTable: LookupTable = {
+const RelativeTextLookupTable: LookupTable = {
   first: 1,
   next: 1,
   second: 2,
@@ -123,7 +123,7 @@ export const RelativeTextLookupTable: LookupTable = {
   previous: 1,
 };
 
-export const RelativeMonthLookupTable: LookupTable = {
+const RelativeMonthLookupTable: LookupTable = {
   null: 0,
   jan: 1,
   feb: 2,
