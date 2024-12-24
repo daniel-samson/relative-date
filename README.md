@@ -21,7 +21,7 @@ The date which is used as a base for the calculation of relative dates. when not
 import { relativeDate } from "@danielsamson/relative-date";
 
 console.log(relativeDate("now"));
-console.log(relativeDate("+1 day"));
+console.log(relativeDate("1 day ago"));
 console.log(relativeDate("+1 week"));
 console.log(relativeDate("+1 week 2 days 4 hours 2 seconds"));
 console.log(relativeDate("next Thursday"));
