@@ -25,7 +25,7 @@ export type RelativeLookupTable = {
   [key: string]: RelativeTimeUnit;
 };
 
-export const relativeLookupTable: RelativeLookupTable = {
+export const RelativeLookupTable: RelativeLookupTable = {
   null: { name: "NULL", unit: TimeUnit.Null, multiplier: TimeUnit.Null },
   ms: { name: "ms", unit: TimeUnit.Microsecond, multiplier: 1000 },
   msec: { name: "msec", unit: TimeUnit.Microsecond, multiplier: 1000 },
