@@ -163,3 +163,16 @@ export const RelativeMonthLookupTable: LookupTable = {
   november: 11,
   december: 12,
 };
+
+/**
+ * Converts a relative date into a date
+ * @param relativeDateString A relative date string that is uses relative date format
+ * @param baseDate The date which is used as a base for the calculation of relative dates
+ * @returns The date
+ */
+export function relativeDate(relativeDateString: string, baseDate?: Date): Date {
+  const relativeDateParts = relativeDateString.split(" ");
+  // TODO: implement
+  throw new Error("Not implemented");
+  return new Date();
+}
