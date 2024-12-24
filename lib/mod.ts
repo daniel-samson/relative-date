@@ -119,8 +119,9 @@ const RelativeTextLookupTable: LookupTable = {
   tenth: 0,
   eleventh: 1,
   twelfth: 2,
-  last: 1,
-  previous: 1,
+  last: -1,
+  previous: -1,
+  this: 0,
 };
 
 const RelativeMonthLookupTable: LookupTable = {
