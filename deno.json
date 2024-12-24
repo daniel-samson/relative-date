@@ -1,0 +1,9 @@
+{
+  "name": "@danielsamson/relative-date",
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1"
+  }
+}
