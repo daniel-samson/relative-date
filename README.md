@@ -1,5 +1,5 @@
 # relative-date
-Converts relative date strings into dates. It ports the relative time format from PHP's `strtotime` [relative formats](https://www.php.net/manual/en/function.strtotime.php)
+Converts relative date strings into dates. It ports the relative time format from PHP's `strtotime` [relative formats](https://www.php.net/manual/en/datetime.formats.php#datetime.formats.relative)
 
 ## Usage
 
