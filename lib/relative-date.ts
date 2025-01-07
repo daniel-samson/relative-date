@@ -31,8 +31,8 @@ function dayTime(day: DayTime, baseDate: Date): Date {
  * @returns The date
  */
 function dayWithDayTime(day: DayWithDayTime, baseDate: Date): Date {
-    baseDate.setHours(day.dayTime.value, 0, 0, 0);
-    baseDate.setDate(baseDate.getDate() + day.day.value);
+    baseDate = whichDay(day.day, baseDate);
+    baseDate = dayTime(day.dayTime, baseDate);
     return baseDate;
 }
 
