@@ -1,0 +1,19 @@
+{
+  "name": "relative-date",
+  "version": "1.0.0",
+  "description": "Converts relative date strings into dates. It ports the relative time format from PHP's `strtotime` [relative formats](https://www.php.net/manual/en/datetime.formats.php#datetime.formats.relative).",
+  "directories": {
+    "lib": "lib"
+  },
+  "main": "scripts/generate-parser.js",
+  "scripts": {
+    "start": "node ./scripts/generate-parser.js"
+  },
+  "keywords": [],
+  "author": "Daniel Samson",
+  "license": "mit",
+  "dependencies": {
+    "peggy": "^3.0.2",
+    "ts-pegjs": "^4.2.1"
+  }
+}

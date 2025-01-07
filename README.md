@@ -31,3 +31,10 @@ console.log(relativeDate("last Monday"));
 ## License
 
 MIT
+
+## Generate Parser
+
+```sh
+npm install
+npm start
+```
