@@ -59,3 +59,43 @@ Deno.test("RelativeDate: noon", () => {
   expectedDate.setHours(12, 0, 0, 0);
   assertEquals(actualDate.getTime(), expectedDate.getTime());
 });
+
+Deno.test("RelativeDate: tomorrow noon", () => {
+  const relativeDateString = "tomorrow noon";
+  const actualDate = relativeDate(relativeDateString);
+
+  const expectedDate = new Date();
+  expectedDate.setDate(expectedDate.getDate() + 1);
+  expectedDate.setHours(12, 0, 0, 0);
+  assertEquals(actualDate.getTime(), expectedDate.getTime());
+});
+
+Deno.test("RelativeDate: tomorrow midnight", () => {
+  const relativeDateString = "tomorrow midnight";
+  const actualDate = relativeDate(relativeDateString);
+
+  const expectedDate = new Date();
+  expectedDate.setDate(expectedDate.getDate() + 1);
+  expectedDate.setHours(0, 0, 0, 0);
+  assertEquals(actualDate.getTime(), expectedDate.getTime());
+});
+
+Deno.test("RelativeDate: yesterday midnight", () => {
+  const relativeDateString = "yesterday midnight";
+  const actualDate = relativeDate(relativeDateString);
+
+  const expectedDate = new Date();
+  expectedDate.setDate(expectedDate.getDate() - 1);
+  expectedDate.setHours(0, 0, 0, 0);
+  assertEquals(actualDate.getTime(), expectedDate.getTime());
+});
+
+Deno.test("RelativeDate: yesterday noon", () => {
+  const relativeDateString = "yesterday noon";
+  const actualDate = relativeDate(relativeDateString);
+
+  const expectedDate = new Date();
+  expectedDate.setDate(expectedDate.getDate() - 1);
+  expectedDate.setHours(12, 0, 0, 0);
+  assertEquals(actualDate.getTime(), expectedDate.getTime());
+});

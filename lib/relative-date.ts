@@ -1,4 +1,4 @@
-import type {Day, Now, DayTime } from "./grammar-parser.ts";
+import type {Day, Now, DayTime, DayWithDayTime} from "./grammar-parser.ts";
 import {parse} from "./grammar-parser.ts";
 
 /**
@@ -24,6 +24,18 @@ function dayTime(day: DayTime, baseDate: Date): Date {
     return baseDate;
 }
 
+/**
+ * Returns the date for the given day with day time
+ * @param day The day to return the date for
+ * @param baseDate
+ * @returns The date
+ */
+function dayWithDayTime(day: DayWithDayTime, baseDate: Date): Date {
+    baseDate.setHours(day.dayTime.value, 0, 0, 0);
+    baseDate.setDate(baseDate.getDate() + day.day.value);
+    return baseDate;
+}
+
 
 /**
  * Converts a relative date into a date
@@ -42,6 +54,8 @@ export function relativeDate(relativeDateString: string, baseDate: Date|null = n
             return whichDay(parsed as Day, now);
         } else if ((parsed as DayTime).type === "DayTime") {
             return dayTime(parsed as DayTime, now);
+        } else if ((parsed as DayWithDayTime).type === "DayWithDayTime") {
+            return dayWithDayTime(parsed as DayWithDayTime, now);
         } else {
             throw new Error("Not supported");
         }
