@@ -99,3 +99,21 @@ Deno.test("RelativeDate: yesterday noon", () => {
   expectedDate.setHours(12, 0, 0, 0);
   assertEquals(actualDate.getTime(), expectedDate.getTime());
 });
+
+Deno.test("RelativeDate: 7am", () => {
+  const relativeDateString = "7am";
+  const actualDate = relativeDate(relativeDateString);
+
+  const expectedDate = new Date();
+  expectedDate.setHours(7, 0, 0, 0);
+  assertEquals(actualDate.getTime(), expectedDate.getTime());
+});
+
+Deno.test("RelativeDate: 7pm", () => {
+  const relativeDateString = "7pm";
+  const actualDate = relativeDate(relativeDateString);
+
+  const expectedDate = new Date();
+  expectedDate.setHours(19, 0, 0, 0);
+  assertEquals(actualDate.getTime(), expectedDate.getTime());
+});

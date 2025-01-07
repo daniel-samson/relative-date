@@ -1,4 +1,4 @@
-import type {Day, Now, DayTime, DayWithDayTime} from "./grammar-parser.ts";
+import type {Day, Now, DayTime, DayWithDayTime, HourMeridiem, Meridiem} from "./grammar-parser.ts";
 import {parse} from "./grammar-parser.ts";
 
 /**
@@ -36,6 +36,21 @@ function dayWithDayTime(day: DayWithDayTime, baseDate: Date): Date {
     return baseDate;
 }
 
+/**
+ * Returns the date for the given hour and meridiem
+ * @param hourMeridiem The hour and meridiem to return the date for
+ * @param baseDate
+ * @returns The date
+ */
+function hourMeridiem(hourMeridiem: HourMeridiem, baseDate: Date): Date {
+    const maridigem = hourMeridiem.meridiem as Meridiem;
+    const hour = hourMeridiem.hour as number;
+    baseDate.setHours(hour, 0, 0, 0);
+    if (maridigem.value === "pm") {
+        baseDate.setHours(baseDate.getHours() + 12);
+    }
+    return baseDate;
+}
 
 /**
  * Converts a relative date into a date
@@ -56,6 +71,8 @@ export function relativeDate(relativeDateString: string, baseDate: Date|null = n
             return dayTime(parsed as DayTime, now);
         } else if ((parsed as DayWithDayTime).type === "DayWithDayTime") {
             return dayWithDayTime(parsed as DayWithDayTime, now);
+        } else if ((parsed as HourMeridiem).type === "HourMeridiem") {
+            return hourMeridiem(parsed as HourMeridiem, now);
         } else {
             throw new Error("Not supported");
         }
