@@ -1,4 +1,14 @@
-import type {Day, Now, DayTime, DayWithDayTime, HourMeridiem, Meridiem} from "./grammar-parser.ts";
+import type {
+    Day,
+    Now,
+    DayTime,
+    DayWithDayTime,
+    HourMeridiem,
+    Meridiem,
+    DayWithHourMeridiem,
+    HourMeridiemWithDay,
+    DayTimeWithToday
+} from "./grammar-parser.ts";
 import {parse} from "./grammar-parser.ts";
 
 /**
@@ -53,6 +63,18 @@ function hourMeridiem(hourMeridiem: HourMeridiem, baseDate: Date): Date {
 }
 
 /**
+ * Returns the date for the given day with hour and meridiem
+ * @param day The day to return the date for
+ * @param baseDate
+ * @returns The date
+ */
+function dayWithHourMeridiem(day: DayWithHourMeridiem, baseDate: Date): Date {
+    baseDate = whichDay(day.day, baseDate);
+    baseDate = hourMeridiem(day.hourMeridiem, baseDate);
+    return baseDate;
+}
+
+/**
  * Converts a relative date into a date
  * @param relativeDateString A relative date string that is uses relative date format
  * @param baseDate The date which is used as a base for the calculation of relative dates
@@ -69,10 +91,16 @@ export function relativeDate(relativeDateString: string, baseDate: Date|null = n
             return whichDay(parsed as Day, now);
         } else if ((parsed as DayTime).type === "DayTime") {
             return dayTime(parsed as DayTime, now);
+        } else if ((parsed as DayTimeWithToday).type === "DayWithDayTime") {
+            return dayWithDayTime(parsed as DayWithDayTime, now);
         } else if ((parsed as DayWithDayTime).type === "DayWithDayTime") {
             return dayWithDayTime(parsed as DayWithDayTime, now);
         } else if ((parsed as HourMeridiem).type === "HourMeridiem") {
             return hourMeridiem(parsed as HourMeridiem, now);
+        } else if ((parsed as DayWithHourMeridiem).type === "DayWithHourMeridiem") {
+            return dayWithHourMeridiem(parsed as DayWithHourMeridiem, now);
+        } else if ((parsed as HourMeridiemWithDay).type === "DayWithHourMeridiem") {
+            return dayWithHourMeridiem(parsed as DayWithHourMeridiem, now);
         } else {
             throw new Error("Not supported");
         }

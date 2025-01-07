@@ -370,19 +370,28 @@ function peg$parse(input, options) {
   var peg$f6 = function(day, dayTime) {// @ts-ignore
  return { type: "DayWithDayTime", day, dayTime }; };// @ts-ignore
 
-  var peg$f7 = function() {// @ts-ignore
- return { type: "Meridiem", value: "am" }; };// @ts-ignore
+  var peg$f7 = function(dayTime, day) {// @ts-ignore
+ return { type: "DayWithDayTime", dayTime, day }; };// @ts-ignore
 
   var peg$f8 = function() {// @ts-ignore
- return { type: "Meridiem", value: "pm" }; };// @ts-ignore
+ return { type: "Meridiem", value: "am" }; };// @ts-ignore
 
   var peg$f9 = function() {// @ts-ignore
+ return { type: "Meridiem", value: "pm" }; };// @ts-ignore
+
+  var peg$f10 = function() {// @ts-ignore
  return parseInt(text(), 10); };// @ts-ignore
 
-  var peg$f10 = function(hour, meridiem) {// @ts-ignore
+  var peg$f11 = function(hour, meridiem) {// @ts-ignore
  return { type: "HourMeridiem", hour, meridiem }; };// @ts-ignore
 
-  var peg$f11 = function() {// @ts-ignore
+  var peg$f12 = function(day, hourMeridiem) {// @ts-ignore
+ return { type: "DayWithHourMeridiem", day, hourMeridiem }; };// @ts-ignore
+
+  var peg$f13 = function(hourMeridiem, day) {// @ts-ignore
+ return { type: "DayWithHourMeridiem", hourMeridiem, day }; };// @ts-ignore
+
+  var peg$f14 = function() {// @ts-ignore
  return parseInt(text(), 10); };
 // @ts-ignore
   var peg$currPos = 0;
@@ -653,19 +662,34 @@ peg$parseRelativeDate() {
 // @ts-ignore
     if (s0 === peg$FAILED) {
 // @ts-ignore
-      s0 = peg$parseHourMeridiem();
+      s0 = peg$parseDayWithHourMeridiem();
 // @ts-ignore
       if (s0 === peg$FAILED) {
 // @ts-ignore
-        s0 = peg$parseDayWithDayTime();
+        s0 = peg$parseHourMeridiemWithDay();
 // @ts-ignore
         if (s0 === peg$FAILED) {
 // @ts-ignore
-          s0 = peg$parseDay();
+          s0 = peg$parseHourMeridiem();
 // @ts-ignore
           if (s0 === peg$FAILED) {
 // @ts-ignore
-            s0 = peg$parseDayTime();
+            s0 = peg$parseDayTimeWithToday();
+// @ts-ignore
+            if (s0 === peg$FAILED) {
+// @ts-ignore
+              s0 = peg$parseDayWithDayTime();
+// @ts-ignore
+              if (s0 === peg$FAILED) {
+// @ts-ignore
+                s0 = peg$parseDay();
+// @ts-ignore
+                if (s0 === peg$FAILED) {
+// @ts-ignore
+                  s0 = peg$parseDayTime();
+                }
+              }
+            }
           }
         }
       }
@@ -969,6 +993,47 @@ peg$parseDayWithDayTime() {
 
 // @ts-ignore
   function // @ts-ignore
+peg$parseDayTimeWithToday() {
+// @ts-ignore
+    var s0, s1, s2, s3;
+
+// @ts-ignore
+    s0 = peg$currPos;
+// @ts-ignore
+    s1 = peg$parseDayTime();
+// @ts-ignore
+    if (s1 !== peg$FAILED) {
+// @ts-ignore
+      s2 = peg$parseWS();
+// @ts-ignore
+      s3 = peg$parseToday();
+// @ts-ignore
+      if (s3 !== peg$FAILED) {
+// @ts-ignore
+        peg$savedPos = s0;
+// @ts-ignore
+        s0 = peg$f7(s1, s3);
+// @ts-ignore
+      } else {
+// @ts-ignore
+        peg$currPos = s0;
+// @ts-ignore
+        s0 = peg$FAILED;
+      }
+// @ts-ignore
+    } else {
+// @ts-ignore
+      peg$currPos = s0;
+// @ts-ignore
+      s0 = peg$FAILED;
+    }
+
+// @ts-ignore
+    return s0;
+  }
+
+// @ts-ignore
+  function // @ts-ignore
 peg$parseAM() {
 // @ts-ignore
     var s0, s1;
@@ -993,7 +1058,7 @@ peg$parseAM() {
 // @ts-ignore
       peg$savedPos = s0;
 // @ts-ignore
-      s1 = peg$f7();
+      s1 = peg$f8();
     }
 // @ts-ignore
     s0 = s1;
@@ -1028,7 +1093,7 @@ peg$parsePM() {
 // @ts-ignore
       peg$savedPos = s0;
 // @ts-ignore
-      s1 = peg$f8();
+      s1 = peg$f9();
     }
 // @ts-ignore
     s0 = s1;
@@ -1246,7 +1311,7 @@ peg$parseHour() {
 // @ts-ignore
                             peg$savedPos = s0;
 // @ts-ignore
-                            s1 = peg$f9();
+                            s1 = peg$f10();
                           }
 // @ts-ignore
                           s0 = s1;
@@ -1287,7 +1352,89 @@ peg$parseHourMeridiem() {
 // @ts-ignore
         peg$savedPos = s0;
 // @ts-ignore
-        s0 = peg$f10(s1, s3);
+        s0 = peg$f11(s1, s3);
+// @ts-ignore
+      } else {
+// @ts-ignore
+        peg$currPos = s0;
+// @ts-ignore
+        s0 = peg$FAILED;
+      }
+// @ts-ignore
+    } else {
+// @ts-ignore
+      peg$currPos = s0;
+// @ts-ignore
+      s0 = peg$FAILED;
+    }
+
+// @ts-ignore
+    return s0;
+  }
+
+// @ts-ignore
+  function // @ts-ignore
+peg$parseDayWithHourMeridiem() {
+// @ts-ignore
+    var s0, s1, s2, s3;
+
+// @ts-ignore
+    s0 = peg$currPos;
+// @ts-ignore
+    s1 = peg$parseDay();
+// @ts-ignore
+    if (s1 !== peg$FAILED) {
+// @ts-ignore
+      s2 = peg$parseWS();
+// @ts-ignore
+      s3 = peg$parseHourMeridiem();
+// @ts-ignore
+      if (s3 !== peg$FAILED) {
+// @ts-ignore
+        peg$savedPos = s0;
+// @ts-ignore
+        s0 = peg$f12(s1, s3);
+// @ts-ignore
+      } else {
+// @ts-ignore
+        peg$currPos = s0;
+// @ts-ignore
+        s0 = peg$FAILED;
+      }
+// @ts-ignore
+    } else {
+// @ts-ignore
+      peg$currPos = s0;
+// @ts-ignore
+      s0 = peg$FAILED;
+    }
+
+// @ts-ignore
+    return s0;
+  }
+
+// @ts-ignore
+  function // @ts-ignore
+peg$parseHourMeridiemWithDay() {
+// @ts-ignore
+    var s0, s1, s2, s3;
+
+// @ts-ignore
+    s0 = peg$currPos;
+// @ts-ignore
+    s1 = peg$parseHourMeridiem();
+// @ts-ignore
+    if (s1 !== peg$FAILED) {
+// @ts-ignore
+      s2 = peg$parseWS();
+// @ts-ignore
+      s3 = peg$parseDay();
+// @ts-ignore
+      if (s3 !== peg$FAILED) {
+// @ts-ignore
+        peg$savedPos = s0;
+// @ts-ignore
+        s0 = peg$f13(s1, s3);
 // @ts-ignore
       } else {
 // @ts-ignore
@@ -1360,7 +1507,7 @@ peg$parseInteger() {
 // @ts-ignore
       peg$savedPos = s0;
 // @ts-ignore
-      s1 = peg$f11();
+      s1 = peg$f14();
     }
 // @ts-ignore
     s0 = s1;
@@ -1540,7 +1687,15 @@ export const PeggySyntaxError = peggyParser.SyntaxError as typeof _PeggySyntaxEr
 export type PeggySyntaxError = _PeggySyntaxError;
 
 // These types were autogenerated by ts-pegjs
-export type RelativeDate = Now | HourMeridiem | DayWithDayTime | Day | DayTime;
+export type RelativeDate =
+  | Now
+  | DayWithHourMeridiem
+  | HourMeridiemWithDay
+  | HourMeridiem
+  | DayTimeWithToday
+  | DayWithDayTime
+  | Day
+  | DayTime;
 export type Now = { type: "Now"; value: 0 };
 export type Today = { type: "WhichDay"; value: 0 };
 export type Tomorrow = { type: "WhichDay"; value: 1 };
@@ -1553,6 +1708,11 @@ export type DayWithDayTime = {
   type: "DayWithDayTime";
   day: Day;
   dayTime: DayTime;
+};
+export type DayTimeWithToday = {
+  type: "DayWithDayTime";
+  dayTime: DayTime;
+  day: Today;
 };
 export type AM = { type: "Meridiem"; value: "am" };
 export type PM = { type: "Meridiem"; value: "pm" };
@@ -1574,6 +1734,16 @@ export type HourMeridiem = {
   type: "HourMeridiem";
   hour: Integer;
   meridiem: Meridiem;
+};
+export type DayWithHourMeridiem = {
+  type: "DayWithHourMeridiem";
+  day: Day;
+  hourMeridiem: HourMeridiem;
+};
+export type HourMeridiemWithDay = {
+  type: "DayWithHourMeridiem";
+  hourMeridiem: HourMeridiem;
+  day: Day;
 };
 export type Integer = number;
 export type WS = string[];
